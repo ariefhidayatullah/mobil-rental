@@ -19,8 +19,9 @@ class VerifikasiController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->id == 'sopir') {
+        if (Auth::user()->role == 'sopir') {
             $rental = Rental::select('b.name as nama_manager', 'mobil.*', 'merk.merk as nama_merk', 'rental.status', 'pengguna.*', 'rental.id as id_rental', 'c.name as nama_sopir')->join('users as b', 'b.id', 'rental.id_manager')->join('pengguna', 'pengguna.id', 'rental.id_pemesan')->join('mobil', 'mobil.id', 'rental.id_mobil')->join('merk', 'merk.id', 'mobil.id_merk')->join('users as c', 'c.id', 'rental.id_sopir')->where('rental.status', 'pengajuan')->where('rental.id_sopir', Auth::user()->id)->get();
+            // return $rental;
         } else {
             $rental = Rental::select('b.name as nama_manager', 'mobil.*', 'merk.merk as nama_merk', 'rental.status', 'pengguna.*', 'rental.id as id_rental', 'c.name as nama_sopir')->join('users as b', 'b.id', 'rental.id_manager')->join('pengguna', 'pengguna.id', 'rental.id_pemesan')->join('mobil', 'mobil.id', 'rental.id_mobil')->join('merk', 'merk.id', 'mobil.id_merk')->join('users as c', 'c.id', 'rental.id_sopir')->where('rental.status', 'di acc sopir')->where('rental.id_manager', Auth::user()->id)->get();
         }
@@ -83,7 +84,7 @@ class VerifikasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::user()->id == 'admin') {
+        if (Auth::user()->role == 'admin') {
             try {
                 Rental::find($id)->update([
                     'status' => 'selesai',
@@ -94,7 +95,7 @@ class VerifikasiController extends Controller
             return redirect(url('verifikasi/'))->with('error', $ex->getMessage());
         }
         }
-        if (Auth::user()->id == 'sopir') {
+        if (Auth::user()->role == 'sopir') {
             try {
                 Rental::find($id)->update([
                     'status' => 'di acc sopir'

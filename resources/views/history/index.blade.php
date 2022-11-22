@@ -55,6 +55,22 @@
                                             <td>{{$item->status}}</td>
                                         </tr>
                                         @endforeach
+                                        <tr>
+                                            <td> </td>
+                                            <td>jumlah pesanan</td>
+                                            <td>{{$no - 1 }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td> </td>
+                                            <td>jumlah Diterima</td>
+                                            <td>{{$diterima}}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
